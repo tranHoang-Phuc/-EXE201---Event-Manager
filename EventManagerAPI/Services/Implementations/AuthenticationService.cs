@@ -119,7 +119,7 @@ namespace EventManagerAPI.Services.Implementations
             }
 
             var token = await _userManager.GeneratePasswordResetTokenAsync(user);
-            var resetLink = $"http://localhost:3000/reset-password?userId={user.Id}&token={Uri.EscapeDataString(token)}";
+            var resetLink = $"https://eventset.online/reset-password?userId={user.Id}&token={Uri.EscapeDataString(token)}";
 
             await _emailService.SendPasswordResetEmailAsync(email, resetLink);
             return ServiceResult.Success();
