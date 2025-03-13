@@ -36,7 +36,7 @@ namespace EventManagerAPI
                 options.AddPolicy("AllowReactApp",
                     policy =>
                     {
-                        policy.WithOrigins("http://eventset.online") 
+                        policy.WithOrigins("http://eventset.online", "http://localhost:3000'") 
                               .AllowAnyHeader()
                               .AllowAnyMethod()
                               .AllowCredentials();
