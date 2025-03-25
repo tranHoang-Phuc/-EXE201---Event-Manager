@@ -4,6 +4,7 @@ using EventManagerAPI.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EventManagerAPI.Migrations
 {
     [DbContext(typeof(EventSetDbContext))]
-    partial class EventSetDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250324142148_AddSupplierTable")]
+    partial class AddSupplierTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -284,8 +286,9 @@ namespace EventManagerAPI.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid>("SupplierCategoryId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<string>("SupplierCategoryName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("SupplierName")
                         .IsRequired()
@@ -294,25 +297,7 @@ namespace EventManagerAPI.Migrations
 
                     b.HasKey("SupplierId");
 
-                    b.HasIndex("SupplierCategoryId");
-
                     b.ToTable("Suppliers");
-                });
-
-            modelBuilder.Entity("EventManagerAPI.Models.SupplierCategory", b =>
-                {
-                    b.Property<Guid>("SupplierCategoryId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("SupplierCategoryName")
-                        .IsRequired()
-                        .HasMaxLength(255)
-                        .HasColumnType("nvarchar(255)");
-
-                    b.HasKey("SupplierCategoryId");
-
-                    b.ToTable("SupplierCategories");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -479,17 +464,6 @@ namespace EventManagerAPI.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("EventManagerAPI.Models.Supplier", b =>
-                {
-                    b.HasOne("EventManagerAPI.Models.SupplierCategory", "SupplierCategory")
-                        .WithMany("Suppliers")
-                        .HasForeignKey("SupplierCategoryId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("SupplierCategory");
-                });
-
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("EventManagerAPI.Models.Role", null)
@@ -556,11 +530,6 @@ namespace EventManagerAPI.Migrations
             modelBuilder.Entity("EventManagerAPI.Models.EventCategory", b =>
                 {
                     b.Navigation("Events");
-                });
-
-            modelBuilder.Entity("EventManagerAPI.Models.SupplierCategory", b =>
-                {
-                    b.Navigation("Suppliers");
                 });
 #pragma warning restore 612, 618
         }

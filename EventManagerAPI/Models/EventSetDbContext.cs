@@ -20,7 +20,10 @@ namespace EventManagerAPI.Models
 		public DbSet<AppUser> Users { get; set; }
 
 		public DbSet<EventParticipant> EventParticipants { get; set; }
-        public DbSet<InvalidatedToken> InvalidatedTokens { get; set; } 
+        public DbSet<InvalidatedToken> InvalidatedTokens { get; set; }
+
+        public DbSet<Supplier> Suppliers { get; set; } // Bảng Supplier
+        public DbSet<SupplierCategory> SupplierCategories { get; set; } //
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 		{
 			var config = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build();
@@ -90,6 +93,12 @@ namespace EventManagerAPI.Models
                 b.HasKey(r => r.Id);
                 b.Property(r => r.Id).HasMaxLength(450); 
             });
+
+            modelBuilder.Entity<Supplier>()
+            .HasOne(s => s.SupplierCategory)
+            .WithMany(c => c.Suppliers)
+            .HasForeignKey(s => s.SupplierCategoryId)
+            .OnDelete(DeleteBehavior.Cascade);
 
         }
 	}
