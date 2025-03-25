@@ -23,7 +23,7 @@ namespace EventManagerAPI.Controllers
                 .Include(s => s.SupplierCategory).Select(x => new
                 {
                     x.SupplierName,
-                    x.SupplierCategory.SupplierCategoryName,
+                    supplierCateName = x.SupplierCategory.SupplierCategoryName,
                     x.Link,
                     x.Location
                 })
