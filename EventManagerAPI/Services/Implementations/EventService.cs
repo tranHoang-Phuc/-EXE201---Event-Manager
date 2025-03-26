@@ -37,6 +37,7 @@ namespace EventManagerAPI.Services.Implementations
                 EndDate = eInfo.EndDate,
                 DressCode = eInfo.DressCode,
                 Location = eInfo.Location,
+                Description = eInfo.Description,
                 Concept = eInfo.Concept,
                 CategoryId = eInfo.CategoryId,
                 ParticipantCount = eInfo.ParticipantCount,
@@ -124,6 +125,7 @@ namespace EventManagerAPI.Services.Implementations
             getEventById.StartDate = eInfo.StartDate;
             getEventById.EndDate = eInfo.EndDate;
             getEventById.DressCode = eInfo.DressCode;
+            getEventById.Description = eInfo.Description;
             getEventById.Location = eInfo.Location;
             getEventById.Concept = eInfo.Concept;
             getEventById.CategoryId = eInfo.CategoryId;
