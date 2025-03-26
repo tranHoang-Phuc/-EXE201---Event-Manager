@@ -16,6 +16,8 @@ namespace EventManagerAPI.Models
 		public string? Concept { get; set; }
 		public DateTime StartDate { get; set; }
 		public DateTime? EndDate { get; set; }
+
+		public string? Description { get; set; }
 		public int ParticipantCount { get; set; }
 
 		// Ma generate sau khi tao 1 event
