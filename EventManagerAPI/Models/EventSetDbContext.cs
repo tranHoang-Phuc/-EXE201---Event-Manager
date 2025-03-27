@@ -22,8 +22,10 @@ namespace EventManagerAPI.Models
 		public DbSet<EventParticipant> EventParticipants { get; set; }
         public DbSet<InvalidatedToken> InvalidatedTokens { get; set; }
 
-        public DbSet<Supplier> Suppliers { get; set; } // Bảng Supplier
-        public DbSet<SupplierCategory> SupplierCategories { get; set; } //
+        public DbSet<Supplier> Suppliers { get; set; } 
+        public DbSet<SupplierCategory> SupplierCategories { get; set; }
+
+        public DbSet<TaskJob> TaskJobs { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 		{
 			var config = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build();
@@ -99,6 +101,14 @@ namespace EventManagerAPI.Models
             .WithMany(c => c.Suppliers)
             .HasForeignKey(s => s.SupplierCategoryId)
             .OnDelete(DeleteBehavior.Cascade);
+
+
+            // Thiết lập mối quan hệ giữa TaskJob và Event
+            modelBuilder.Entity<TaskJob>()
+                .HasOne(tj => tj.Event)
+                .WithMany(e => e.TaskJobs) // 1 Event có nhiều TaskJob
+                .HasForeignKey(tj => tj.EventId)
+                .OnDelete(DeleteBehavior.Cascade); // Xóa TaskJob nếu Event bị xóa
 
         }
 	}
