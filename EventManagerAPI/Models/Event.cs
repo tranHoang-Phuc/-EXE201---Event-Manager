@@ -37,5 +37,7 @@ namespace EventManagerAPI.Models
 
 		// Danh sách người tham gia sự kiện (N-N)
 		public ICollection<EventParticipant> EventParticipants { get; set; }
-	}
+
+        public ICollection<TaskJob> TaskJobs { get; set; } // Thêm thuộc tính navigation cho TaskJob
+    }
 }
